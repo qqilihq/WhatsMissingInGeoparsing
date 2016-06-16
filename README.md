@@ -1,4 +1,4 @@
-# WhatsWrongWithGeoparsers
-The accompanying code and data for the publication "What's wrong with geographical parsers?"
+# WhatsMissingInGeoparsing
+The accompanying code and data for the publication "What's missing in geographical parsing?"
 
-To come ...
+The dataset WikToR, (SciPaper) is the original data as described and used in the paper.
