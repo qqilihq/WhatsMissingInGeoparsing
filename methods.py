@@ -50,7 +50,7 @@ def prepare_lgl(path_to_xml, path_to_output, directory):
             tag = top.find("gaztag")
             phrase = top.find("phrase")
             if tag is None:
-                continue
+                continue   # Do not include toponyms with NO coordinates, we filter these out (~17% of the dataset)
             start = top.find("start")
             end = top.find("end")
             query = {'geonameId': tag.attrib['geonameid'], 'username': "milangritta"}
@@ -67,9 +67,9 @@ def prepare_lgl(path_to_xml, path_to_output, directory):
         for t in gold_tops:
             f.write(t + "||")
         f.write("\n")
-        # f = codecs.open("./" + directory + "/" + str(c), 'w', "utf-8)  # Files saved by numbers
-        # f.write(text)
-        # f.close()
+        f = codecs.open("./" + directory + "/" + str(c), 'w', "utf-8")  # Files saved by numbers
+        f.write(text)
+        f.close()
         c += 1
     f.close()
 
@@ -87,7 +87,7 @@ def prepare_wiki(path_to_xml, path_to_output, directory):
     f = codecs.open(path_to_output, "w", "utf-8")
     c = 0
     for child in root:
-        # text = child.find('text').text
+        text = child.find('text').text
         gold_tops = []
         toponyms = child.findall('./toponymIndices/toponym')
         phrase = child.find("./toponymName")
@@ -102,10 +102,10 @@ def prepare_wiki(path_to_xml, path_to_output, directory):
         for t in gold_tops:
             f.write(t + "||")
         f.write("\n")
-        # f = codecs.open("./" + directory + "/" + str(c), 'w', "utf-8")  # Files saved by numbers
-        # f.write(text)
-        # f.close()
-        # c += 1
+        f = codecs.open("./" + directory + "/" + str(c), 'w', "utf-8")  # Files saved by numbers
+        f.write(text)
+        f.close()
+        c += 1
     f.close()
 
 
@@ -157,6 +157,7 @@ def calculate_scores(predicted, gold, inspect=False, topocluster=False):
     """
     tp, fp, fn = 0.0, 0.0, 0.0
     accuracy = {}
+    wiki = True if "wiki" in predicted else False
     predictions_file = codecs.open(predicted)
     gold = codecs.open(gold)
     toponym_index = -1
@@ -178,7 +179,7 @@ def calculate_scores(predicted, gold, inspect=False, topocluster=False):
                     if predicted_top_items[1].lower() == gold_top_items[1].lower():
                         match = True
                 elif abs(mean_g - mean_p) < 10 and predicted_top_items[1].lower() == gold_top_items[1].lower():
-                    match = True
+                    match = True   # Change the number above to 0 for EXACT matches, 10 for INEXACT matches
                 if match:
                     tp += 1
                     predicted_tops.remove(predicted_top)
@@ -187,7 +188,8 @@ def calculate_scores(predicted, gold, inspect=False, topocluster=False):
                     gold_coord = (float(gold_top_items[2]), float(gold_top_items[3]))
                     accuracy[toponym_index] = numpy.log(1 + great_circle(predicted_coord, gold_coord).kilometers)
                     break
-        # fp += len(predicted_tops)
+        if not wiki:
+            fp += len(predicted_tops)
         fn += len(gold_tops)
         if inspect:
             if len(predicted_tops) > 0 or 0 < len(gold_tops):
@@ -263,12 +265,9 @@ def format_edinburgh(xml):
     toponyms, targets = [], []
     for ent in root.findall("./standoff/ents[@source='ner-rb']/ent[@type='location']"):
         name = ent.find("./parts/part")
-        lat = ent.attrib['lat'] if 'lat' in ent.attrib else "0.0"
-        lon = ent.attrib['long'] if 'long' in ent.attrib else "0.0"
-        if lat == "" or lon == "":
-            lat = "0.0"
-            lon = "0.0"
-        targets.append((name.text, name.attrib, lat, lon))
+        lat = ent.attrib['lat'] if 'lat' in ent.attrib else "0.0"    # Any locations which remain NIL (0.0) must
+        lon = ent.attrib['long'] if 'long' in ent.attrib else "0.0"  # be removed before evaluation for fairness
+        targets.append((name.text, name.attrib, lat, lon))           # This happens only in around 2-4% of cases
     for target in targets:
         index, start, end = 0, 0, 0
         for word in root.findall("./text/p/s/w"):
@@ -293,7 +292,7 @@ def run_edinburgh(path):
     :return: A list of toponyms - format: [PLACEHOLDER STRING,,matched name,,lat,,long,,start index,,end index]
     """
     sp = subprocess.Popen("cat " + path + " | /Users/milangritta/Downloads/DATA/parsers/Edinburgh/scripts/run " +
-                          "-t plain -g unlock -top", shell=True, stdout=subprocess.PIPE)
+                          "-t plain -g geonames -top", shell=True, stdout=subprocess.PIPE)
     return format_edinburgh(sp.stdout.read())
 
 
@@ -355,11 +354,11 @@ def all_results(corpus):
 
 # EXAMPLE USAGE OF FUNCTIONS:
 # prepare_lgl(path_to_xml='./lgl.xml', path_to_output='./data/lgl_gold.txt', directory="./lgl/")
-# prepare_wiki(path_to_xml='./wiktor.xml', path_to_output='./data/wiki_gold.txt', directory="wiki")
+# prepare_wiki(path_to_xml='./WikToR.xml', path_to_output='./data/wiki_gold.txt', directory="wiki")
 # evaluate_parser(directory="/wiki/", function=run_clavin, out_file='./data/wiki_clavin.txt')
 # data = calculate_scores(predicted="./data/lgl_topo.case.txt", gold="./data/lgl_gold.txt", topocluster=True)
 # print_stats(accuracy=sorted(data['accuracy'].values()), scores=data['f_score'])
 # merge_files(directory="./wiki_topo", max_index=5000, prefix="", output_file="./data/wiki_topo.txt")
 # accuracy = numpy.log([x + 1 for x in accuracy])
 # print_stats(accuracy=accuracy, plot=True)
-all_results(corpus="wiki")
+# all_results(corpus="wiki")
