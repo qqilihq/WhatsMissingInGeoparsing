@@ -39,7 +39,7 @@ accepted = ["adm1st", "adm2nd", "adm3rd", "city", "country", "isle"]
 #             continue
 #         else:
 #             continue
-#     query = {'format': 'xml', 'title': location[0], 'maxRows': 100, 'username': "milangritta", 'style': 'full', 'feature': "city"}
+#     query = {'format': 'xml', 'title': location[0], 'maxRows': 100, 'username': "YOUR USERNAME", 'style': 'full', 'feature': "city"}
 #     response = urllib.urlopen("http://api.geonames.org/wikipediaSearch?" + urllib.urlencode(query))
 #     time.sleep(0.5)  # This should keep Geonames Free happy, maximum of 2000 requests per hour, so pause here briefly
 #     for entry in ElementTree.fromstring(response.read()):
