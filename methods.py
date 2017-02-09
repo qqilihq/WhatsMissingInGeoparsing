@@ -53,7 +53,7 @@ def prepare_lgl(path_to_xml, path_to_output, directory):
                 continue   # Do not include toponyms with NO coordinates, we filter these out (~17% of the dataset)
             start = top.find("start")
             end = top.find("end")
-            query = {'geonameId': tag.attrib['geonameid'], 'username': "milangritta"}
+            query = {'geonameId': tag.attrib['geonameid'], 'username': "PLEASE YOUR USERNAME"}  # OR use 'demo' for a test
             response = urllib.urlopen("http://api.geonames.org/get?" + urllib.urlencode(query))
             time.sleep(1)
             info = et.fromstring(response.read())
