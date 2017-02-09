@@ -1,10 +1,6 @@
 # What's Missing In Geoparsing
 
----
-
 > "Science is a wonderful thing if one does not have to earn one's living at it." -- Albert Einstein
-
----
 
 ## Summary
 
