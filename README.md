@@ -1,6 +1,9 @@
 # What's Missing In Geoparsing
-Science is a wonderful thing if one does not have to earn one's living at it.
-Read more at: https://www.brainyquote.com/quotes/quotes/a/alberteins148848.html?src=t_science
+
+> "Science is a wonderful thing if one does not have to earn one's living at it." -- Albert Einstein
+
+---
+
 ## Summary
 
 Thanks for stopping by! In this repository, you will find the accompanying code and data for the publication "What's missing in geographical parsing?" in the journal [Language Resources and Evaluation](http://link.springer.com/journal/10579) (link coming soon after publication). In the unlikely case of any files missing, please track me down and I'll upload :+1:
