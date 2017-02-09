@@ -1,5 +1,6 @@
 # What's Missing In Geoparsing
-
+Science is a wonderful thing if one does not have to earn one's living at it.
+Read more at: https://www.brainyquote.com/quotes/quotes/a/alberteins148848.html?src=t_science
 ## Summary
 
 Thanks for stopping by! In this repository, you will find the accompanying code and data for the publication "What's missing in geographical parsing?" in the journal [Language Resources and Evaluation](http://link.springer.com/journal/10579) (link coming soon after publication). In the unlikely case of any files missing, please track me down and I'll upload :+1:
@@ -28,3 +29,5 @@ The dataset (WikToR) can be created (and unite tested) from scratch, extended, r
 * Please sign up for a [GeoNames](http://www.geonames.org/login) account and a USERNAME, which you will need to fill in on line 42 to ensure the API query works.
 * The first half of wiktor.py is for CORPUS CREATION, the second half is for CORPUS TESTING.
 * Enjoy!
+
+> "The science of today is the technology of tomorrow." -- Edward Teller
