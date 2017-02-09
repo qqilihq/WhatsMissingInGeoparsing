@@ -9,7 +9,7 @@ from nltk import word_tokenize
 
 accepted = ["adm1st", "adm2nd", "adm3rd", "city", "country", "isle"]
 names = {}
-for line in open("YOUR/PATH/TO/allCountries.txt"):
+for line in open("allCountries.txt"):
     line = re.split(r'\t+', line)
     if line[6] in ["A", "P"]:  # Administrative Areas and Populated Places only
         if line[2] in names:
