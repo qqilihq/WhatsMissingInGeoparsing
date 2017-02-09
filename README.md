@@ -1,5 +1,7 @@
 # What's Missing In Geoparsing
 
+---
+
 > "Science is a wonderful thing if one does not have to earn one's living at it." -- Albert Einstein
 
 ---
@@ -33,4 +35,5 @@ The dataset (WikToR) can be created (and unite tested) from scratch, extended, r
 * The first half of wiktor.py is for CORPUS CREATION, the second half is for CORPUS TESTING.
 * Enjoy!
 
+---
 > "The science of today is the technology of tomorrow." -- Edward Teller
