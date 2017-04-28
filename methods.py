@@ -53,7 +53,7 @@ def prepare_lgl(path_to_xml, path_to_output, directory):
                 continue   # Do not include toponyms with NO coordinates, we filter these out (~17% of the dataset)
             start = top.find("start")
             end = top.find("end")
-            query = {'geonameId': tag.attrib['geonameid'], 'username': "PLEASE YOUR USERNAME"}  # OR use 'demo' for a test
+            query = {'geonameId': tag.attrib['geonameid'], 'username': "milangritta"}
             response = urllib.urlopen("http://api.geonames.org/get?" + urllib.urlencode(query))
             time.sleep(1)
             info = et.fromstring(response.read())
@@ -232,11 +232,11 @@ def print_stats(accuracy, scores=None, plot=False):
         print "Recall:    ", recall
         f_score = 2 * precision * recall / (precision + recall)
         print "F-Score:   ", f_score
-    print "Median: ", numpy.median(accuracy)
+    print "Median: ", numpy.median(sorted(accuracy))
     print "Mean: ", numpy.mean(accuracy)
     print "Size: ", len(accuracy)
     k = numpy.log(161)  # This is the k in accuracy@k metric (see my Survey Paper for details)
-    print "Accuracy to " + str(k) + " km: ", sum([1.0 for dist in accuracy if dist < k]) / len(accuracy)
+    print "Accuracy to 161 km: ", sum([1.0 for dist in accuracy if dist < k]) / len(accuracy)
     print "AUC = ", numpy.trapz(accuracy) / (numpy.log(MAX_ERROR) * (len(accuracy) - 1))  # Using trapezoidal rule.
     # The above computes the actual errors committed divided by the worst case scenario, i.e every error = MAX_ERROR
     if plot:
@@ -246,10 +246,10 @@ def print_stats(accuracy, scores=None, plot=False):
         # ax2.plot(accuracy1, 'b^')
         plt.plot(accuracy)
         plt.title('Distribution of Geocoding Errors. Number of toponyms: ' + str(len(accuracy)))
-        plt.ylabel('Error Distance in log(KM)')
+        plt.ylabel('Error Distance in ln(KM)')
         plt.xlabel('Geocoding Error Per Toponym')
-        # x1,x2,y1,y2 = plt.axis()
-        # plt.axis((x1,x2,y1,10))
+        x1,x2,y1,y2 = plt.axis()
+        plt.axis((x1, len(accuracy), y1, 10))
         plt.show()
 
 
@@ -356,9 +356,9 @@ def all_results(corpus):
 # prepare_lgl(path_to_xml='./lgl.xml', path_to_output='./data/lgl_gold.txt', directory="./lgl/")
 # prepare_wiki(path_to_xml='./WikToR.xml', path_to_output='./data/wiki_gold.txt', directory="wiki")
 # evaluate_parser(directory="/wiki/", function=run_clavin, out_file='./data/wiki_clavin.txt')
-# data = calculate_scores(predicted="./data/lgl_topo.case.txt", gold="./data/lgl_gold.txt", topocluster=True)
-# print_stats(accuracy=sorted(data['accuracy'].values()), scores=data['f_score'])
+# data = calculate_scores(predicted="./data/lgl_edin.txt", gold="./data/lgl_gold.txt", topocluster=True)
+# print_stats(accuracy=sorted(data['accuracy'].values()), scores=data['f_score'], plot=True)
 # merge_files(directory="./wiki_topo", max_index=5000, prefix="", output_file="./data/wiki_topo.txt")
-# accuracy = numpy.log([x + 1 for x in accuracy])
+# accuracy = numpy.log([x + 1 for x in sorted(data['accuracy'].values())])
 # print_stats(accuracy=accuracy, plot=True)
-# all_results(corpus="wiki")
+all_results(corpus="wiki")
