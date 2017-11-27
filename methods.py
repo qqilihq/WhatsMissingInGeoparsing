@@ -232,8 +232,8 @@ def print_stats(accuracy, scores=None, plot=False):
         print "Recall:    ", recall
         f_score = 2 * precision * recall / (precision + recall)
         print "F-Score:   ", f_score
-    print "Median: ", numpy.median(sorted(accuracy))
-    print "Mean: ", numpy.mean(accuracy)
+    print "Median: ", numpy.median(sorted(numpy.exp(accuracy)))
+    print "Mean: ", numpy.mean(numpy.exp(accuracy))
     print "Size: ", len(accuracy)
     k = numpy.log(161)  # This is the k in accuracy@k metric (see my Survey Paper for details)
     print "Accuracy to 161 km: ", sum([1.0 for dist in accuracy if dist < k]) / len(accuracy)
