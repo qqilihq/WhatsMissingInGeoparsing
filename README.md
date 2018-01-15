@@ -4,7 +4,7 @@
 
 ## Summary
 
-Thanks for stopping by! In this repository, you will find the accompanying code and data for the publication "What's missing in geographical parsing?" in the journal [Language Resources and Evaluation](http://link.springer.com/journal/10579) (link coming soon after publication). In the unlikely case of any files missing, please track me down and I'll upload :+1:
+Thanks for stopping by! In this repository, you will find the accompanying code and data for the publication "What's missing in geographical parsing?" in the journal [Language Resources and Evaluation]( https://link.springer.com/article/10.1007/s10579-017-9385-8). In the unlikely case of any files missing, please track me down and I'll upload :+1:
 
 ## What's included
 
