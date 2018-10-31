@@ -1,7 +1,7 @@
 # What's Missing In Geoparsing?
 
 ***
-`NEWS UPDATE 31.10.2018 - Thank you very much for your interest in our manuscript and resources. We have a LONG PAPER that *greatly* expands on this topic. The title is ["A Pragmatic Guide to Geoparsing Evaluation."](https://arxiv.org/abs/1810.12368) It's on arxiv as a preprint and under review at Springer. Have a nice day. Please, check out our other repositories :-)`
+NEWS UPDATE 31.10.2018 - Thank you very much for your interest in our manuscript and resources. We have a LONG PAPER that *greatly* expands on this topic. The title is ["A Pragmatic Guide to Geoparsing Evaluation."](https://arxiv.org/abs/1810.12368) It's on arxiv as a preprint and under review at Springer. Have a nice day. Please, check out our other repositories :-)
 ***
 
 > "Science is a wonderful thing if one does not have to earn one's living at it." -- Albert Einstein
