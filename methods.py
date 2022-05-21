@@ -58,7 +58,7 @@ def prepare_lgl(path_to_xml, path_to_output, directory):
             time.sleep(1)
             info = et.fromstring(response.read())
             area = calculate_area(info)
-            print c
+            print(c)
             name = tag.find("name")
             lat = tag.find("lat")
             lon = tag.find("lon")
@@ -138,7 +138,7 @@ def evaluate_parser(directory, function, out_file):
     for f in range(0, 5000):
         out = function(os.getcwd() + directory + str(f))
         # time.sleep(0.5)
-        print f
+        print(f)
         for line in out:
             save.write(line + "||")
         save.write("\n")
@@ -193,8 +193,8 @@ def calculate_scores(predicted, gold, inspect=False, topocluster=False):
         fn += len(gold_tops)
         if inspect:
             if len(predicted_tops) > 0 or 0 < len(gold_tops):
-                print "Predicted:", " - ".join(predicted_tops)
-                print "Gold Tops:", " - ".join(gold_tops)
+                print("Predicted:", " - ".join(predicted_tops))
+                print("Gold Tops:", " - ".join(gold_tops))
     f_score = (tp, fp, fn)
     output = {"f_score": f_score, "accuracy": accuracy}
     return output
@@ -227,17 +227,17 @@ def print_stats(accuracy, scores=None, plot=False):
     MAX_ERROR = 20039  # Furthest distance between two points on Earth, i.e the circumference / 2
     if scores is not None:
         precision = scores[0] / (scores[0] + scores[1])
-        print "Precision: ", precision
+        print("Precision: ", precision)
         recall = scores[0] / (scores[0] + scores[2])
-        print "Recall:    ", recall
+        print("Recall:    ", recall)
         f_score = 2 * precision * recall / (precision + recall)
-        print "F-Score:   ", f_score
-    print "Median: ", numpy.median(sorted(numpy.exp(accuracy)))
-    print "Mean: ", numpy.mean(numpy.exp(accuracy))
-    print "Size: ", len(accuracy)
+        print("F-Score:   ", f_score)
+    print("Median: ", numpy.median(sorted(numpy.exp(accuracy))))
+    print("Mean: ", numpy.mean(numpy.exp(accuracy)))
+    print("Size: ", len(accuracy))
     k = numpy.log(161)  # This is the k in accuracy@k metric (see my Survey Paper for details)
-    print "Accuracy to 161 km: ", sum([1.0 for dist in accuracy if dist < k]) / len(accuracy)
-    print "AUC = ", numpy.trapz(accuracy) / (numpy.log(MAX_ERROR) * (len(accuracy) - 1))  # Using trapezoidal rule.
+    print("Accuracy to 161 km: ", sum([1.0 for dist in accuracy if dist < k]) / len(accuracy))
+    print("AUC = ", numpy.trapz(accuracy) / (numpy.log(MAX_ERROR) * (len(accuracy) - 1)))  # Using trapezoidal rule.
     # The above computes the actual errors committed divided by the worst case scenario, i.e every error = MAX_ERROR
     if plot:
         # fig, ax1 = plt.subplots()
@@ -279,7 +279,7 @@ def format_edinburgh(xml):
             if word.attrib['pws'] != "no":
                 index += 1
         if start == 0 and end == 0:
-            print xml, targets
+            print(xml, targets)
         toponyms.append(
             "No Gaz" + ",," + target[0] + ",," + target[2] + ",," + target[3] + ",," + str(start) + ",," + str(end))
     return toponyms
@@ -308,8 +308,8 @@ def run_geotext(q):
         query_chunk = q[start: start + 3000]
         response = urllib.urlopen(base_url + urllib.urlencode({'q': query_chunk}))  # contact servers
         if response.code != 200:
-            print "Error Response Code =", response.code, " query length=", len(query_chunk)
-            print response.info()
+            print("Error Response Code =", response.code, " query length=", len(query_chunk))
+            print(response.info())
             return []
         res = json.loads(response.read())
         for m in res['features']:
@@ -340,16 +340,16 @@ def all_results(corpus):
     ya_keys = set(yahoo['accuracy'].keys())
     ge_keys = set(geo['accuracy'].keys())
     common_toponyms = cl_keys.intersection(ed_keys).intersection(ya_keys).intersection(ge_keys).intersection(tc_keys)
-    print "Common toponyms count is", len(common_toponyms), "for a fair comparison on identical samples."
+    print("Common toponyms count is", len(common_toponyms), "for a fair comparison on identical samples.")
     for parser, name in zip([clavin, edinburgh, yahoo, geo, topo], ["Clavin", "Edinburgh", "Yahoo", "GeoTxt", "Topocluster"]):
         acc = []
         for key in common_toponyms:
             acc.append(parser['accuracy'][key])
-        print "Stats for", name
-        print_stats(accuracy=parser['accuracy'].values(), scores=parser['f_score'])
-        print '-' * 50
+        print("Stats for", name)
+        print_stats(accuracy=list(parser['accuracy'].values()), scores=parser['f_score'])
+        print('-' * 50)
         print_stats(accuracy=acc)
-        print '-' * 50
+        print('-' * 50)
 
 
 # EXAMPLE USAGE OF FUNCTIONS:
