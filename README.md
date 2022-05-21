@@ -1,6 +1,18 @@
 # What's Missing In Geoparsing?
 
 ***
+**FORKED REPOSITORY 2022-05-21** – This is a fork of the original repository which adds evaluation output which was created using Palladian’s Location Extractor. Also, it fixes the Python code to work with Python 3.
+
+For more information about the Palladian Location Extractor please refer to the original paper: <a href="http://philippkatz.de/AusDM-Location-Extraction.pdf">To Learn or to Rule: Two Approaches for Extracting Geographical Information from Unstructured Text</a>; Philipp Katz and Alexander Schill; Proc. of the 11th Australasian Data Mining & Analytics Conference (AusDM 2013).
+
+Despite its age, the Palladian Location Extractor can be considered state-of-the-art and outperforms most of the other systems (GeoTxt, Edinburgh, Yahoo, CLAVIN, Topocluster).
+
+See class `ws.palladian.extraction.location.evaluation.DatasetProducer` in Palladian for how to produce the data.
+
+Thank you to Milan Gritta for making this available!
+***
+
+***
 **NEWS UPDATE 31.9.2019** - We have a **LONG FOLLOW-UP PAPER OUT NOW** that greatly expands on this topic. The title is **["A Pragmatic Guide to Geoparsing Evaluation."](https://link.springer.com/article/10.1007/s10579-019-09475-3)** It's now been published at Springer LREV Journal. For the project/paper repository, **[follow this link](https://github.com/milangritta/Pragmatic-Guide-to-Geoparsing-Evaluation)**.
 ***
 
@@ -23,6 +35,7 @@ You should have some basic Python libraries like Numpy, NLTK, Matplotlib (if you
 * methods.py is the main python script for running the experiments (requires the yahoo.py script)
 * Please install [GeoPy](https://pypi.python.org/pypi/geopy/1.11.0) to calculate the distances between coordinates.
 * Also install [Wikipedia](https://pypi.python.org/pypi/wikipedia/) for Python, nice API wrapper :+1:
+* Also install numpy and matplotlib
 * Scroll down to the end of the file to see example usage, I included all necessary instructions and comments. 
 * Enjoy!
 
