@@ -334,14 +334,18 @@ def all_results(corpus):
     yahoo = calculate_scores(predicted="./data/" + corpus + "_yahoo.txt", gold="./data/" + corpus + "_gold.txt")
     geo = calculate_scores(predicted="./data/" + corpus + "_geo.txt", gold="./data/" + corpus + "_gold.txt")
     topo = calculate_scores(predicted="./data/" + corpus + "_topo.txt", gold="./data/" + corpus + "_gold.txt", topocluster=True)
+    palladian_hr = calculate_scores(predicted="./data/" + corpus + "_palladian_hr.txt", gold="./data/" + corpus + "_gold.txt")
+    palladian_ml = calculate_scores(predicted="./data/" + corpus + "_palladian_ml.txt", gold="./data/" + corpus + "_gold.txt")
     tc_keys = set(topo['accuracy'].keys())
     cl_keys = set(clavin['accuracy'].keys())
     ed_keys = set(edinburgh['accuracy'].keys())
     ya_keys = set(yahoo['accuracy'].keys())
     ge_keys = set(geo['accuracy'].keys())
-    common_toponyms = cl_keys.intersection(ed_keys).intersection(ya_keys).intersection(ge_keys).intersection(tc_keys)
+    pa_hr_keys = set(palladian_hr['accuracy'].keys())
+    pa_ml_keys = set(palladian_ml['accuracy'].keys())
+    common_toponyms = cl_keys.intersection(ed_keys).intersection(ya_keys).intersection(ge_keys).intersection(tc_keys).intersection(pa_hr_keys).intersection(pa_ml_keys)
     print("Common toponyms count is", len(common_toponyms), "for a fair comparison on identical samples.")
-    for parser, name in zip([clavin, edinburgh, yahoo, geo, topo], ["Clavin", "Edinburgh", "Yahoo", "GeoTxt", "Topocluster"]):
+    for parser, name in zip([clavin, edinburgh, yahoo, geo, topo, palladian_hr, palladian_ml], ["Clavin", "Edinburgh", "Yahoo", "GeoTxt", "Topocluster", "PalladianHeuristic", "PalladianML"]):
         acc = []
         for key in common_toponyms:
             acc.append(parser['accuracy'][key])
